@@ -5,6 +5,7 @@ import java.util.Scanner;
 import com.lti.bean.Course;
 import com.lti.bean.Professor;
 import com.lti.bean.Student;
+import com.lti.exception.EntityNotFoundException;
 import com.lti.service.AdminOperations;
 import com.lti.service.UserOperations;
 
@@ -20,7 +21,7 @@ public class CRSApplication {
 		System.out.println("Please enter your choice...!");
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws EntityNotFoundException {
 		// TODO Auto-generated method stub
 
 		display();

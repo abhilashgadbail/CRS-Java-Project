@@ -6,6 +6,7 @@ import java.util.Map;
 import com.lti.application.AdminCrsMenu;
 import com.lti.application.ProfessorCrsMenu;
 import com.lti.application.StudentCrsMenu;
+import com.lti.exception.EntityNotFoundException;
 
 public class UserOperations {
 	
@@ -13,7 +14,7 @@ public class UserOperations {
 	 StudentCrsMenu studentCrsMenu= new StudentCrsMenu();
 	 ProfessorCrsMenu professorCrsMenu=new ProfessorCrsMenu();
 	
-	public void adminLogin(String userId, String password){
+	public void adminLogin(String userId, String password) throws EntityNotFoundException {
 		
 		Map<String, String> userCreds = new HashMap<String, String>();
 		Map<String, String> matchedCreds = new HashMap<String, String>();
@@ -34,7 +35,8 @@ public class UserOperations {
 		   
 		}
 		else
-		   System.out.println("invalid credentials");
+			throw new EntityNotFoundException("invalid credentials");
+		 //  System.out.println("invalid credentials");
 	}
 
 	public void loginAsStudent(String userId, String password) {
