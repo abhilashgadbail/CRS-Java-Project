@@ -26,6 +26,13 @@ public class Course {
 		this.cFees = cFees;
 		this.cDuration = cDuration;
 	}
+	
+	public Course() {
+		
+		
+	}
+	
+	
 	/**
 	 * @param cId the cId to set
 	 */

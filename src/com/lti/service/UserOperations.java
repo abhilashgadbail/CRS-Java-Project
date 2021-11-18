@@ -1,5 +1,7 @@
 package com.lti.service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,19 +18,13 @@ public class UserOperations {
 	
 	public void adminLogin(String userId, String password) throws EntityNotFoundException {
 		
-		Map<String, String> userCreds = new HashMap<String, String>();
-		Map<String, String> matchedCreds = new HashMap<String, String>();
-		userCreds.put("xyz@gmail.com", "xyz123");
-		userCreds.put("abc@gmail.com","abc@123");
-		userCreds.put("abc1@gmail.com","abc@123");
-
-		userCreds.put("123","123");
-		for (Map.Entry<String, String> entry : userCreds.entrySet()){
-
-		   if (entry.getKey().equals(userId) && entry.getValue().equals(password)){
-		      matchedCreds.put(entry.getKey(),entry.getValue());
-		   }
-		}
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		String sql="select * from user where userId="+userId+" and password="+password;
+		
+		stmt = conn.prepareStatement(sql);
+		
 		if (matchedCreds.size()>0){
 		   System.out.println("Sucessfully logged In");
 		   adminCrsMenu.Admindisplay();

@@ -24,6 +24,9 @@ public class CRSApplication {
 	public static void main(String[] args) throws EntityNotFoundException {
 		// TODO Auto-generated method stub
 
+		AdminOperations admin=new AdminOperations();
+		
+		//admin.addCourse();
 		display();
 
 		// String inp= String.valueOf(input);

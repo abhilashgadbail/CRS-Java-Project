@@ -7,10 +7,12 @@ import com.lti.bean.Course;
 import com.lti.bean.Payment;
 import com.lti.bean.Professor;
 import com.lti.bean.Student;
+import com.lti.dao.AdminDAOOperations;
 import com.lti.util.Utility;
 
 public class AdminOperations implements AdminInterface {
 
+	AdminDAOOperations adminDAOOperations=new AdminDAOOperations();
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -32,9 +34,11 @@ public class AdminOperations implements AdminInterface {
 	 */
 	public void addCourse() {
 
-		courseList.add(new Course(101, "ENTC", 8, 50000.00, 4));
+		adminDAOOperations.addToCourse();
+		
+		/*courseList.add(new Course(101, "ENTC", 8, 50000.00, 4));
 		courseList.add(new Course(102, "CTIT", 8, 50000.00, 4));
-		courseList.add(new Course(103, "Mechanical", 8, 50000.00, 4));
+		courseList.add(new Course(103, "Mechanical", 8, 50000.00, 4));*/
 
 	}
 
