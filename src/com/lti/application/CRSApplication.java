@@ -52,7 +52,9 @@ public class CRSApplication {
 			std.setsName(sName);
 			std.setsEmailId(sEmailId);
 			sCrs.registration(std);
+			System.out.println("HI");
 			break;
+			
 
 		case 2:
 			UserOperations userOperations = new UserOperations();
