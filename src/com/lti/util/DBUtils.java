@@ -34,7 +34,7 @@ public class DBUtils {
                 String user = prop.getProperty("user");
                 String password = prop.getProperty("password");
                 Class.forName("com.mysql.jdbc.Driver");
-                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/crs", "root", "root");
+                return DriverManager.getConnection("jdbc:mysql://localhost:3306/crs", "root", "root");
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (SQLException e) {
