@@ -1,5 +1,6 @@
 package com.lti.application;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.lti.bean.Course;
@@ -21,7 +22,7 @@ public class CRSApplication {
 		System.out.println("Please enter your choice...!");
 	}
 
-	public static void main(String[] args) throws EntityNotFoundException {
+	public static void main(String[] args) throws EntityNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 
 		AdminOperations admin=new AdminOperations();
@@ -69,25 +70,11 @@ public class CRSApplication {
 
 			System.out.println("Enter your Password");
 			String password = sc.next();
+						
+			userOperations.login(userId, password);
 			
-			System.out.println("Enter your role.. Student or Professor or Admin?");
-			String roleInput = sc.next();
 			
-			String role=roleInput.toLowerCase();
 			
-			if(role.equals("admin") )
-			{
-				userOperations.adminLogin(userId, password);
-			}
-			else if (role.equals("professor")) {
-				userOperations.loginAsProfessor(userId, password);
-			}
-			else if(role.equals("student") ) {
-				userOperations.loginAsStudent(userId, password);
-			}
-
-			else
-				System.out.println("Not Valid Role");
 			
 			break;
 

@@ -3,9 +3,13 @@
  */
 package com.lti.application;
 
+import java.util.Scanner;
+
 import com.lti.bean.Course;
 import com.lti.bean.Professor;
+import com.lti.bean.Student;
 import com.lti.service.AdminOperations;
+import com.lti.service.UserOperations;
 
 /**
  * @author Hp
@@ -15,18 +19,76 @@ public class AdminCrsMenu {
 
 	AdminOperations admin=new AdminOperations();
 	
-	public static void Admindisplay() {
+	public void Admindisplay() {
 		System.out.println("Welcome Admin ..!!");
 		System.out.println("1. Add Course \n" + "2. Remove Course\n" + "3. Add Professor\n"
-		+"4. Remove Professor\n" + "5. Approve Student Registration\n"
+		+"4. Assign Professor\n" + "5. Approve Student Registration\n"
 				+ "6. Exit");
 		System.out.println("Please enter your choice...!");
 		
+		boolean exit=false;
+		do {
+			Scanner sc = new Scanner(System.in);
+			int input = sc.nextInt();
+			
+		
+		switch (input) {
+		case 1:
+			
+			System.out.println("Enter your Course ID");
+			int courseId = sc.nextInt();
+
+			System.out.println("Enter your Course Name");
+			String cName = sc.next();
+			
+			System.out.println("Enter your Semester");
+			int semester = sc.nextInt();
+			
+			System.out.println("Enter your Course Fees");
+			double fees = sc.nextDouble();
+			
+			System.out.println("Enter your Course Duration");
+			int duration = sc.nextInt();
+			
+			admin.addCourse(courseId,cName,semester,fees,duration);
+
+		case 2:
+			
+			
+			
+
+		case 4:
+			
+			
+			
+			break;
+		default:
+
+		Admindisplay();
+		}
+
 	}
+		while (!exit);
+
+
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public void adminCrsmethod() {
 		
-		admin.addCourse();
+		//admin.addCourse();
 		admin.viewCourse();
 		admin.removeCourse(103);
 		admin.updateCourse(new Course(101,"EBC",8,60000.008,4));

@@ -2,6 +2,8 @@ package com.lti.service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +11,7 @@ import com.lti.application.AdminCrsMenu;
 import com.lti.application.ProfessorCrsMenu;
 import com.lti.application.StudentCrsMenu;
 import com.lti.exception.EntityNotFoundException;
+import com.lti.util.DBUtils;
 
 public class UserOperations {
 	
@@ -16,74 +19,42 @@ public class UserOperations {
 	 StudentCrsMenu studentCrsMenu= new StudentCrsMenu();
 	 ProfessorCrsMenu professorCrsMenu=new ProfessorCrsMenu();
 	
-	public void adminLogin(String userId, String password) throws EntityNotFoundException {
+	public void login(String userId, String password) throws EntityNotFoundException, SQLException {
+		
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		
-		String sql="select * from user where userId="+userId+" and password="+password;
-		
+		conn = DBUtils.getConnection();
+
+		String sql="select * from user where user.userId= ? and user.password=?";
+
 		stmt = conn.prepareStatement(sql);
-		
-		if (matchedCreds.size()>0){
-		   System.out.println("Sucessfully logged In");
-		   adminCrsMenu.Admindisplay();
-		   
-		}
-		else
-			throw new EntityNotFoundException("invalid credentials");
-		 //  System.out.println("invalid credentials");
-	}
-
-	public void loginAsStudent(String userId, String password) {
-		// TODO Auto-generated method stub
-		
-		Map<String, String> userCreds = new HashMap<String, String>();
-		Map<String, String> matchedCreds = new HashMap<String, String>();
-		userCreds.put("159", "159");
-		userCreds.put("357","357");
-		
-		for (Map.Entry<String, String> entry : userCreds.entrySet()){
-
-		   if (entry.getKey().equals(userId) && entry.getValue().equals(password)){
-		      matchedCreds.put(entry.getKey(),entry.getValue());
+		stmt.setInt(1,Integer.parseInt(userId));
+		stmt.setString(2,password);
+		ResultSet resultSet = stmt.executeQuery();
+		if (resultSet.next())
+		{
+		   if(resultSet.getString("userId").equals(userId)&&
+		   resultSet.getString("password").equals(password) &&resultSet.getString("role").equals("admin")){
+		      System.out.println("Sucessfully logged In");
+		      adminCrsMenu.Admindisplay();
 		   }
-		}
-		if (matchedCreds.size()>0){
-		   System.out.println("Sucessfully logged In");
-		   
-		   studentCrsMenu.studentDisplay();
-		   
-		}
-		else
-		   System.out.println("invalid credentials");
-		
+		   else if(resultSet.getString("userId").equals(userId)&&
+		         resultSet.getString("password").equals(password) &&resultSet.getString("role").equals("student")){
+		      System.out.println("Sucessfully logged In");
+		      studentCrsMenu.studentDisplay();
+		   }
+		   else if(resultSet.getString("userId").equals(userId)&&
+		         resultSet.getString("password").equals(password) &&resultSet.getString("role").equals("professor")){
+		      System.out.println("Sucessfully logged In");
+		      professorCrsMenu.professorDisplay();
+		   }
+
+
 	}
+		else 
+			throw new EntityNotFoundException("Invalid Credentials");
+
+}
 	
-	public void loginAsProfessor(String userId, String password) {
-		// TODO Auto-generated method stub
-		
-		Map<String, String> userCreds = new HashMap<String, String>();
-		Map<String, String> matchedCreds = new HashMap<String, String>();
-		userCreds.put("741", "741");
-		userCreds.put("852","852");
-		userCreds.put("963","963");
-
-		for (Map.Entry<String, String> entry : userCreds.entrySet()){
-
-		   if (entry.getKey().equals(userId) && entry.getValue().equals(password)){
-		      matchedCreds.put(entry.getKey(),entry.getValue());
-		   }
-		}
-		if (matchedCreds.size()>0){
-		   System.out.println("Sucessfully logged In");
-		   
-		   professorCrsMenu.professorDisplay();
-		   
-		}
-		else
-		   System.out.println("invalid credentials");
-		
-	}
-
 }

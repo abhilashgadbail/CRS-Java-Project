@@ -15,19 +15,9 @@ public class AdminDAOOperations {
 	// List<Course> course= new ArrayList<Course>();
 	Course course1 = new Course(1001, "Civil", 8, 2000, 6);
 
-	public void addToCourse() {
+	public void addToCourse(int courseId, String cName2, int semester, double fees2, int duration2) {
 
-		/*
-		 * private int cId; private String cName; private int cSemester; private double
-		 * cFees; private int cDuration;
-		 */
-
-		// course.add(new Course(1001,"Civil",8,2000,6));
-		/*
-		 * course.add(new Course(102, "CTIT", 8, 50000.00, 4)); course.add(new
-		 * Course(103, "Mechanical", 8, 50000.00, 4));
-		 */
-
+		
 		Connection conn = null;
 		PreparedStatement stmt = null;
 
@@ -53,18 +43,18 @@ public class AdminDAOOperations {
 
 			// Hard coded data
 
-			int id = course1.getcId();
+		/*	int id = course1.getcId();
 			String cName = course1.getcName();
 			int cSemester = course1.getcSemester();
 			double fees = course1.getcFees();
 			int duration = course1.getcDuration();
-
+*/
 			// Bind values into the parameters.
-			stmt.setInt(1, id); // This would set age
-			stmt.setString(2, cName);
-			stmt.setInt(3, cSemester);
-			stmt.setDouble(4, fees);
-			stmt.setInt(5, duration);
+			stmt.setInt(1, courseId); // This would set age
+			stmt.setString(2, cName2);
+			stmt.setInt(3, semester);
+			stmt.setDouble(4, fees2);
+			stmt.setInt(5, duration2);
 			stmt.executeUpdate();
 
 			// Let us update age of the record with ID = 102;

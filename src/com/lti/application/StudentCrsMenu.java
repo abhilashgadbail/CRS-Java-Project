@@ -17,7 +17,7 @@ public class StudentCrsMenu {
 	public static void studentDisplay() {
 		System.out.println("Welcome Student ..!!");
 		System.out.println("1. View GradeCard \n" +  "2. Student Registration\n"
-				+ "6. Exit");
+				+ "3. Exit");
 		System.out.println("Please enter your choice...!");
 		
 	}
