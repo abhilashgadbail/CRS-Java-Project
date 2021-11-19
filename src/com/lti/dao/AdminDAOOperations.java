@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.lti.bean.Course;
@@ -12,14 +13,11 @@ import com.lti.util.DBUtils;
 
 public class AdminDAOOperations {
 
-	// List<Course> course= new ArrayList<Course>();
-	Course course1 = new Course(1001, "Civil", 8, 2000, 6);
+	
+	Connection conn = null;
+	PreparedStatement stmt = null;
 
 	public void addToCourse(int courseId, String cName2, int semester, double fees2, int duration2) {
-
-		
-		Connection conn = null;
-		PreparedStatement stmt = null;
 
 		try {
 
@@ -43,12 +41,6 @@ public class AdminDAOOperations {
 
 			// Hard coded data
 
-		/*	int id = course1.getcId();
-			String cName = course1.getcName();
-			int cSemester = course1.getcSemester();
-			double fees = course1.getcFees();
-			int duration = course1.getcDuration();
-*/
 			// Bind values into the parameters.
 			stmt.setInt(1, courseId); // This would set age
 			stmt.setString(2, cName2);
@@ -108,4 +100,101 @@ public class AdminDAOOperations {
 		System.out.println("Goodbye!");
 
 	}
+	
+	public void addProfessorDetails(int pId, String pName, int pCourseId, int pDeptId, String pDeptName,
+			String pEmailId){
+
+		try {
+
+			// Step 3 Regiater Driver here and create connection
+
+			Class.forName("com.mysql.jdbc.Driver");
+
+			// Step 4 make/open a connection
+
+			System.out.println("Connecting to database...");
+			conn = DBUtils.getConnection();
+
+			// STEP 4: Execute a query
+			System.out.println("Creating statement...");
+
+			String sql = "insert into professor values(?,?,?,?,?,?)";
+			// String sql = "UPDATE Employees set age=? WHERE id=?";
+			// String sql1="delete from employee where id=?";
+			// stmt.setInt(1, 101);
+			stmt = conn.prepareStatement(sql);
+
+			// Hard coded data
+
+			// Bind values into the parameters.
+			stmt.setInt(1, pId); // This would set age
+			stmt.setString(2, pName);
+			stmt.setInt(3, pCourseId);
+			stmt.setInt(4, pDeptId);
+			stmt.setString(5, pDeptName);			
+			stmt.setString(6, pEmailId);
+			//stmt.setDate(7, (java.sql.Date) dOJ);
+			
+			System.out.println("bofore ************");
+			stmt.executeUpdate();
+
+			// Let us update age of the record with ID = 102;
+			// int rows = stmt.executeUpdate();
+			// System.out.println("Rows impacted : " + rows );
+
+			// Let us select all the records and display them.
+			sql = "SELECT pId,  pName, pCourseId, pDeptId, pDeptName, pEmailId FROM professor";
+			ResultSet rs = stmt.executeQuery(sql);
+
+			// STEP 5: Extract data from result set
+			while (rs.next()) {
+				// Retrieve by column name
+				int pId1 = rs.getInt("pId");
+				String pName1 = rs.getString("pName");
+				int pCourseId1 = rs.getInt("pCourseId");
+				int pDeptId1 = rs.getInt("pDeptId");
+				String pDeptName1 = rs.getString("pDeptName");
+				String pEmailId1 = rs.getString("pEmailId");
+
+				
+				// Display values
+				System.out.print("ProfessorID: " + pId1);
+				System.out.print(", Professor Name: " + pName1);
+				System.out.print(", Course iD: " + pCourseId1);
+				System.out.println(", Department ID " + pDeptId1);
+				System.out.println(", Department: " + pDeptName1);
+
+				System.out.println(", Email Id: " + pEmailId1);
+				
+			}
+			// STEP 6: Clean-up environment
+			// rs.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException se) {
+			// Handle errors for JDBC
+			se.printStackTrace();
+		} catch (Exception e) {
+			// Handle errors for Class.forName
+			e.printStackTrace();
+		} finally {
+			// finally block used to close resources
+			try {
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException se2) {
+			} // nothing we can do
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			} // end finally try
+		} // end try
+		System.out.println("Goodbye!");
+
+	}
+
+	
+	
 }

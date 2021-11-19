@@ -1,6 +1,7 @@
 package com.lti.application;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Scanner;
 
 import com.lti.bean.Course;
@@ -22,7 +23,7 @@ public class CRSApplication {
 		System.out.println("Please enter your choice...!");
 	}
 
-	public static void main(String[] args) throws EntityNotFoundException, SQLException {
+	public static void main(String[] args) throws EntityNotFoundException, SQLException, ParseException {
 		// TODO Auto-generated method stub
 
 		AdminOperations admin=new AdminOperations();

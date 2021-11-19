@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public class UserOperations {
 	 StudentCrsMenu studentCrsMenu= new StudentCrsMenu();
 	 ProfessorCrsMenu professorCrsMenu=new ProfessorCrsMenu();
 	
-	public void login(String userId, String password) throws EntityNotFoundException, SQLException {
+	public void login(String userId, String password) throws EntityNotFoundException, SQLException, ParseException {
 		
 		
 		Connection conn = null;

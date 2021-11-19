@@ -1,6 +1,7 @@
 package com.lti.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.lti.bean.Course;
@@ -75,10 +76,8 @@ public class AdminOperations implements AdminInterface {
 	 * 
 	 * @see com.lti.service.AdminInterface#addProfessor()
 	 */
-	public void addProfessor() {
-		profList.add(new Professor(111, "ABC", 101, 1111, "XYZ", "abc@gmail.com"));
-		profList.add(new Professor(112, "MNP", 102, 1111, "XYZ", "mnp@gmail.com"));
-		profList.add(new Professor(113, "EFG", 103, 1111, "XYZ", "efg@gmail.com"));
+	public void addProfessor(int pId, String pName, int pCourseId, int pDeptId, String pDeptName, String pEmailId) {
+		adminDAOOperations.addProfessorDetails(pId,pName,pCourseId,pDeptId,pDeptName,pEmailId);
 	}
 
 	/*
