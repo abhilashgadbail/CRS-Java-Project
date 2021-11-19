@@ -1,5 +1,9 @@
 package com.lti.service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +12,8 @@ import com.lti.bean.Payment;
 import com.lti.bean.Professor;
 import com.lti.bean.Student;
 import com.lti.dao.AdminDAOOperations;
+import com.lti.exception.EntityNotFoundException;
+import com.lti.util.DBUtils;
 import com.lti.util.Utility;
 
 public class AdminOperations implements AdminInterface {
@@ -47,27 +53,21 @@ public class AdminOperations implements AdminInterface {
 	 * 
 	 * @see com.lti.service.AdminInterface#removeCourse()
 	 */
-	public void removeCourse(int id) {
-		/*
-		 * courseList.remove(id);
-		 * System.out.println("Course has been removed Succesfully!!!"+ id);
-		 */
-		List<Course> courseList1 = new ArrayList<Course>();
-		for (Course c : courseList) {
-			if (c.getcId() == id) {
-				System.out.println("jhdiahdash======");
-				courseList1.add(c);
-				// System.out.println("Professor has been removed Succesfully!!!"+ c.getpId());
-			}
+	public void removeCourse(int id) throws SQLException, EntityNotFoundException {
 
-		}
-		if (courseList1.size() > 0) {
-			courseList.remove(courseList1.get(0));
-			System.out.println("Course has been removed Succesfully!!!" + id);
-		} else {
-			System.out.println("No Course Found with this id" + id);
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		conn =DBUtils.getConnection();
+		String sql = "DELETE FROM course WHERE course.cId=? ";
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1,id);
+		int resultSet = stmt.executeUpdate();
 
+		if (resultSet !=0 ) {
+			System.out.println("Course Successfully deleted");
 		}
+		else
+			throw new EntityNotFoundException("there is no course wth this id "+id+" found");
 	}
 
 	/*

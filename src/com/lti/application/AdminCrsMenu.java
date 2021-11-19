@@ -3,11 +3,16 @@
  */
 package com.lti.application;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import com.lti.bean.Course;
 import com.lti.bean.Professor;
 import com.lti.bean.Student;
+import com.lti.exception.EntityNotFoundException;
 import com.lti.service.AdminOperations;
 import com.lti.service.UserOperations;
 
@@ -19,7 +24,7 @@ public class AdminCrsMenu {
 
 	AdminOperations admin=new AdminOperations();
 	
-	public void Admindisplay() {
+	public void Admindisplay() throws SQLException, EntityNotFoundException {
 		System.out.println("Welcome Admin ..!!");
 		System.out.println("1. Add Course \n" + "2. Remove Course\n" + "3. Add Professor\n"
 		+"4. Assign Professor\n" + "5. Approve Student Registration\n"
@@ -51,20 +56,21 @@ public class AdminCrsMenu {
 			int duration = sc.nextInt();
 			
 			admin.addCourse(courseId,cName,semester,fees,duration);
+			break;
 
 		case 2:
-			
+			System.out.println("Enter your Course ID want to delete");
+			int id = sc.nextInt();
+			admin.removeCourse(id);
+			break;
 			
 			
 
 		case 4:
-			
-			
-			
 			break;
 		default:
+			Admindisplay();
 
-		Admindisplay();
 		}
 
 	}
@@ -86,7 +92,7 @@ public class AdminCrsMenu {
 	
 	
 	
-	public void adminCrsmethod() {
+	public void adminCrsmethod() throws SQLException, EntityNotFoundException {
 		
 		//admin.addCourse();
 		admin.viewCourse();
