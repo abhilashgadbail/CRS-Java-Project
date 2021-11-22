@@ -39,9 +39,6 @@ public class AdminCrsMenu {
 			switch (input) {
 			case 1:
 
-				System.out.println("Enter your Course ID");
-				int courseId = sc.nextInt();
-
 				System.out.println("Enter your Course Name");
 				String cName = sc.next();
 
@@ -54,8 +51,8 @@ public class AdminCrsMenu {
 				System.out.println("Enter your Course Duration");
 				int duration = sc.nextInt();
 
-				admin.addCourse(courseId, cName, semester, fees, duration);
-
+				admin.addCourse( cName, semester, fees, duration);
+				break;
 				case 2:
 					System.out.println("Enter your Course ID want to delete");
 					int id = sc.nextInt();

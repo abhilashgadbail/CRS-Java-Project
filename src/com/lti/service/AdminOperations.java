@@ -40,9 +40,9 @@ public class AdminOperations implements AdminInterface {
 	 * 
 	 * @see com.lti.service.AdminInterface#addCourse()
 	 */
-	public void addCourse(int courseId,String cName,int semester,double fees,int duration) {
+	public void addCourse(String cName,int semester,double fees,int duration) {
 
-		adminDAOOperations.addToCourse(courseId,cName,semester,fees,duration);
+		adminDAOOperations.addToCourse(cName,semester,fees,duration);
 		
 		/*courseList.add(new Course(101, "ENTC", 8, 50000.00, 4));
 		courseList.add(new Course(102, "CTIT", 8, 50000.00, 4));

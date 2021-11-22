@@ -12,7 +12,7 @@ public interface AdminInterface {
 
 	public void adminLogin();
 
-	public void addCourse(int courseId,String cName,int semester,double fees,int duration);
+	public void addCourse(String cName,int semester,double fees,int duration);
 
 	public void removeCourse(int id) throws SQLException, EntityNotFoundException;
 

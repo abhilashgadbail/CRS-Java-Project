@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.lti.SQLconstant.CombineQuery;
 import com.lti.bean.Course;
@@ -21,7 +19,7 @@ public class AdminDAOOperations {
 	Connection conn = null;
 	PreparedStatement stmt = null;
 
-	public void addToCourse(int courseId, String cName2, int semester, double fees2, int duration2) {
+	public void addToCourse( String cName2, int semester, double fees2, int duration2) {
 
 		try {
 
@@ -43,9 +41,8 @@ public class AdminDAOOperations {
 			// stmt.setInt(1, 101);
 			stmt = conn.prepareStatement(sql);
 
-			// Hard coded data
-
-			// Bind values into the parameters.
+			Random rd = new Random();
+			int courseId = rd.nextInt();
 			stmt.setInt(1, courseId); // This would set age
 			stmt.setString(2, cName2);
 			stmt.setInt(3, semester);
@@ -69,6 +66,7 @@ public class AdminDAOOperations {
 				int sem = rs.getInt("cSemester");
 				double fee = rs.getDouble("cFees");
 				int dur = rs.getInt("cDuration");
+
 
 				// Display values
 				System.out.print("ID: " + cId);
