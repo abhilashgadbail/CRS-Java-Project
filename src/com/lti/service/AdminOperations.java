@@ -44,9 +44,7 @@ public class AdminOperations implements AdminInterface {
 
 		adminDAOOperations.addToCourse(cName,semester,fees,duration);
 		
-		/*courseList.add(new Course(101, "ENTC", 8, 50000.00, 4));
-		courseList.add(new Course(102, "CTIT", 8, 50000.00, 4));
-		courseList.add(new Course(103, "Mechanical", 8, 50000.00, 4));*/
+
 
 	}
 

@@ -41,8 +41,13 @@ public class AdminDAOOperations {
 			// stmt.setInt(1, 101);
 			stmt = conn.prepareStatement(sql);
 
-			Random rd = new Random();
-			int courseId = rd.nextInt();
+			//INSERT INTO mytable (column1) VALUES (NEWID());
+
+			int min = 200;
+			int max = 400;
+			//Random rd = new Random();
+
+			int courseId = (int)(Math.random()*(max-min+1)+min);
 			stmt.setInt(1, courseId); // This would set age
 			stmt.setString(2, cName2);
 			stmt.setInt(3, semester);

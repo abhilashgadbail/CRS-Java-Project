@@ -45,7 +45,10 @@ public class UserOperations {
 		   }
 		   else if(resultSet.getString("userId").equals(userId)&&
 		         resultSet.getString("password").equals(password) &&resultSet.getString("role").equals("student")){
-		      System.out.println("Sucessfully logged In");
+
+
+		   	System.out.println("Sucessfully logged In");
+
 		      studentCrsMenu.studentDisplay();
 		   }
 		   else if(resultSet.getString("userId").equals(userId)&&
