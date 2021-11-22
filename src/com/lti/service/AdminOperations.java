@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.lti.SQLconstant.CombineQuery;
 import com.lti.bean.Course;
 import com.lti.bean.Payment;
 import com.lti.bean.Professor;
@@ -59,8 +60,7 @@ public class AdminOperations implements AdminInterface {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		conn =DBUtils.getConnection();
-		String sql = "DELETE FROM course WHERE course.cId=? ";
-		stmt = conn.prepareStatement(sql);
+		stmt = conn.prepareStatement(CombineQuery.removeCourseSql);
 		stmt.setInt(1,id);
 		int resultSet = stmt.executeUpdate();
 
