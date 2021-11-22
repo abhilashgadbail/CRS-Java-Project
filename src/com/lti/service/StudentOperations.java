@@ -1,11 +1,13 @@
 package com.lti.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.lti.bean.Student;
 import com.lti.dao.StudentDAOOperations;
 import com.lti.exception.BadRequestException;
+import com.lti.exception.EntityNotFoundException;
 
 public class StudentOperations implements StudentInterface {
 	// static List<Student> studentList= new ArrayList<Student>();
@@ -19,8 +21,8 @@ public class StudentOperations implements StudentInterface {
 	 * java.lang.String, int, java.lang.String, int)
 	 */
 	@Override
-	public void register(String sName, String sCourseName, int deptId, String dptName, int sem) {
-		sDAO.registerStudent(sName, sCourseName, deptId, dptName, sem);
+	public void register(String sName, String sCourseName, int deptId, String dptName, int sem, String emailid, String password) throws SQLException, EntityNotFoundException {
+		sDAO.registerStudent(sName, sCourseName, deptId, dptName, sem, emailid, password);
 	}
 
 	/*
@@ -97,6 +99,11 @@ public class StudentOperations implements StudentInterface {
 	@Override
 	public void viewRegeisteredCourses() {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addPayment(int rollNo, int payment) {
 
 	}
 

@@ -227,17 +227,22 @@ public void approveStudentRegistration(int sId) throws EntityNotFoundException, 
         Connection conn = null;
 		PreparedStatement stmt = null;
 		conn =DBUtils.getConnection();
-		String sql = "SELECT sId, transactionId, amount,status FROM payment"; 
-		stmt = conn.prepareStatement(sql);
+
+
+		stmt = conn.prepareStatement(CombineQuery.fetchPayment);
+		stmt.setInt(1,sId);
 		
-		ResultSet rs = stmt.executeQuery(sql);
+		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
-			// Retrieve by column name
-			//int sid = rs.getInt("sId");
-		     if (rs.getInt("sId") == sId && rs.getString("status")=="true") {
+
+		     if (rs.getInt("sId") == sId && rs.getBoolean("status")) {
+				stmt = conn.prepareStatement(CombineQuery.approveStudentRegistration);
+				stmt.setBoolean(1,true);
+				stmt.setInt(2,rs.getInt("sId"));
+				stmt.executeUpdate();
 				System.out.println("Student registration approval done  successfully");
-			
-         }
+				break;
+			 }
 		else
 			throw new EntityNotFoundException("No Student Found with Id: "+sId);
 	}

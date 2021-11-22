@@ -13,6 +13,8 @@ import com.lti.application.AdminCrsMenu;
 import com.lti.application.ProfessorCrsMenu;
 import com.lti.application.StudentCrsMenu;
 import com.lti.exception.EntityNotFoundException;
+import com.lti.exception.StatusNotApprovedException;
+import com.lti.exception.TransectionFailedException;
 import com.lti.util.DBUtils;
 
 public class UserOperations {
@@ -21,12 +23,13 @@ public class UserOperations {
 	 StudentCrsMenu studentCrsMenu= new StudentCrsMenu();
 	 ProfessorCrsMenu professorCrsMenu=new ProfessorCrsMenu();
 	
-	public void login(String userId, String password) throws EntityNotFoundException, SQLException, ParseException {
+	public void login(String userId, String password) throws EntityNotFoundException, SQLException, ParseException, StatusNotApprovedException, TransectionFailedException {
 		
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		conn = DBUtils.getConnection();
+		boolean approvalStatus =false;
 
 		//String CombineQuery.sql="select * from user where user.userId= ? and user.password=?";
 
@@ -46,10 +49,20 @@ public class UserOperations {
 		   else if(resultSet.getString("userId").equals(userId)&&
 		         resultSet.getString("password").equals(password) &&resultSet.getString("role").equals("student")){
 
-
+				String studentApprovalStatus = "select aprovalStatus from student where student.sRollNo =?";
+			   stmt =conn.prepareStatement(studentApprovalStatus);
+			   stmt.setString(1,userId);
+			   ResultSet rs = stmt.executeQuery();
+			   if (rs.next()){
+				   approvalStatus = rs.getBoolean("aprovalStatus");
+			   }
 		   	System.out.println("Sucessfully logged In");
 
-		      studentCrsMenu.studentDisplay();
+			   if (approvalStatus) {
+				   studentCrsMenu.studentDisplay();
+			   }
+			   else
+				   System.out.println("sorry your approval is not found");
 		   }
 		   else if(resultSet.getString("userId").equals(userId)&&
 		         resultSet.getString("password").equals(password) &&resultSet.getString("role").equals("professor")){
