@@ -6,4 +6,6 @@ public class CombineQuery {
 
 	public static final String removeProfessorSql = "DELETE FROM professor WHERE professor.pId=? ";
 
+	public static final String removeCourseSql = "DELETE FROM course WHERE course.cId=?";
+
 }

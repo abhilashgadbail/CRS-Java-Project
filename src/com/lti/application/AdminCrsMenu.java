@@ -56,7 +56,11 @@ public class AdminCrsMenu {
 
 				admin.addCourse(courseId, cName, semester, fees, duration);
 
-			case 2:
+				case 2:
+					System.out.println("Enter your Course ID want to delete");
+					int id = sc.nextInt();
+					admin.removeCourse(id);
+					break;
 
 			case 3:
 				System.out.println("Enter Professor ID");
