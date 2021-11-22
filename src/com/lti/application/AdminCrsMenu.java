@@ -3,6 +3,7 @@
  */
 package com.lti.application;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.Scanner;
 import com.lti.bean.Course;
 import com.lti.bean.Professor;
 import com.lti.bean.Student;
+import com.lti.exception.EntityNotFoundException;
 import com.lti.service.AdminOperations;
 import com.lti.service.UserOperations;
 
@@ -22,10 +24,11 @@ public class AdminCrsMenu {
 
 	AdminOperations admin = new AdminOperations();
 
-	public void Admindisplay() throws ParseException {
+	public void Admindisplay() throws ParseException, SQLException, EntityNotFoundException {
 		System.out.println("Welcome Admin ..!!");
-		System.out.println("1. Add Course \n" + "2. Remove Course\n" + "3. Add Professor\n" + "4. Assign Professor\n"
-				+ "5. Approve Student Registration\n" + "6. Exit");
+		System.out.println("1. Add Course \n" + "2. Remove Course\n" + "3. Add Professor\n"
+				+ "4. Assign Professor\n" + "5. Remove Professor\n"
+				+ "6. Approve Student Registration\n" + "6. Exit");
 		System.out.println("Please enter your choice...!");
 
 		boolean exit = false;
@@ -78,6 +81,21 @@ public class AdminCrsMenu {
 			case 4:
 
 				break;
+				
+			case 5:
+
+				System.out.println("Enter Professor's ID");
+				int profId = sc.nextInt();
+				
+				admin.removeProfessor(profId);
+				break;
+				
+			case 6:
+				System.out.println("Enter StudentId");
+				int sId = sc.nextInt();
+				admin.approveStudentRegistration(sId);
+				break;
+				
 			default:
 
 				Admindisplay();
@@ -91,12 +109,12 @@ public class AdminCrsMenu {
 
 		// admin.addCourse();
 		admin.viewCourse();
-		admin.removeCourse(103);
+		//admin.removeCourse(103);
 		admin.updateCourse(new Course(101, "EBC", 8, 60000.008, 4));
 		admin.viewCourse();
 		//admin.addProfessor();
 		admin.viewProfessorDetails();
-		admin.removeProfessor(113);
+		//admin.removeProfessor(113);
 		// admin.updateProfessorDetails(new
 		// Professor(112,"MNP",103,1111,"XYZ","mnp@yahoo.com"));
 		admin.viewProfessorDetails();

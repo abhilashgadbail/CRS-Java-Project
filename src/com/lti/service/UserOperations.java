@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.lti.SQLconstant.CombineQuery;
 import com.lti.application.AdminCrsMenu;
 import com.lti.application.ProfessorCrsMenu;
 import com.lti.application.StudentCrsMenu;
@@ -27,11 +28,13 @@ public class UserOperations {
 		PreparedStatement stmt = null;
 		conn = DBUtils.getConnection();
 
-		String sql="select * from user where user.userId= ? and user.password=?";
+		//String CombineQuery.sql="select * from user where user.userId= ? and user.password=?";
 
-		stmt = conn.prepareStatement(sql);
+		stmt = conn.prepareStatement(CombineQuery.loginSql);
+		
 		stmt.setInt(1,Integer.parseInt(userId));
 		stmt.setString(2,password);
+		
 		ResultSet resultSet = stmt.executeQuery();
 		if (resultSet.next())
 		{

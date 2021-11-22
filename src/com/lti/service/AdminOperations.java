@@ -1,5 +1,9 @@
 package com.lti.service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +13,8 @@ import com.lti.bean.Payment;
 import com.lti.bean.Professor;
 import com.lti.bean.Student;
 import com.lti.dao.AdminDAOOperations;
+import com.lti.exception.EntityNotFoundException;
+import com.lti.util.DBUtils;
 import com.lti.util.Utility;
 
 public class AdminOperations implements AdminInterface {
@@ -48,27 +54,21 @@ public class AdminOperations implements AdminInterface {
 	 * 
 	 * @see com.lti.service.AdminInterface#removeCourse()
 	 */
-	public void removeCourse(int id) {
-		/*
-		 * courseList.remove(id);
-		 * System.out.println("Course has been removed Succesfully!!!"+ id);
-		 */
-		List<Course> courseList1 = new ArrayList<Course>();
-		for (Course c : courseList) {
-			if (c.getcId() == id) {
-				System.out.println("jhdiahdash======");
-				courseList1.add(c);
-				// System.out.println("Professor has been removed Succesfully!!!"+ c.getpId());
-			}
+	public void removeCourse(int id) throws SQLException, EntityNotFoundException {
 
-		}
-		if (courseList1.size() > 0) {
-			courseList.remove(courseList1.get(0));
-			System.out.println("Course has been removed Succesfully!!!" + id);
-		} else {
-			System.out.println("No Course Found with this id" + id);
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		conn =DBUtils.getConnection();
+		String sql = "DELETE FROM course WHERE course.cId=? ";
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1,id);
+		int resultSet = stmt.executeUpdate();
 
+		if (resultSet !=0 ) {
+			System.out.println("Course Successfully deleted");
 		}
+		else
+			throw new EntityNotFoundException("there is no course wth this id "+id+" found");
 	}
 
 	/*
@@ -85,23 +85,14 @@ public class AdminOperations implements AdminInterface {
 	 * 
 	 * @see com.lti.service.AdminInterface#removeProfessor()
 	 */
-	public void removeProfessor(int pid) {
-		List<Professor> profList1 = new ArrayList<Professor>();
-		for (Professor c : profList) {
-			if (c.getpId() == pid) {
-				System.out.println("jhdiahdash======");
-				profList1.add(c);
-				// System.out.println("Professor has been removed Succesfully!!!"+ c.getpId());
-			}
-
-		}
-		if (profList1.size() > 0) {
-			profList.remove(profList1.get(0));
-			System.out.println("Professor has been removed Succesfully!!!" + pid);
-		} else {
-			System.out.println("No Professor Found with this id" + pid);
-
-		}
+	public void removeProfessor(int pid) throws SQLException, EntityNotFoundException {
+		
+		
+		
+		adminDAOOperations.removeProf(pid);
+		
+		
+		
 	}
 
 	/*
@@ -168,7 +159,7 @@ public class AdminOperations implements AdminInterface {
 	 * }
 	 */
 
-	public void approveStudentRegistration(int id) {
+	/*public void approveStudentRegistration(int id) {
 
 		payList.add(new Payment(1, 12345, 25000, true));
 		payList.add(new Payment(2, 96545, 45000, true));
@@ -180,7 +171,7 @@ public class AdminOperations implements AdminInterface {
 			}
 		}
 
-	}
+	}*/
 	
 	public void generateReportCard(float cpi) {
 		String grade=Utility.calculateCPI(cpi);
@@ -194,6 +185,15 @@ public class AdminOperations implements AdminInterface {
 			System.out.println("Student has Passed..!!");
 		
 		
+	}
+	
+	public void approveStudentRegistration(int sId){
+		try {
+			adminDAOOperations.approveStudentRegistration(sId);
+		} catch (EntityNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -13,8 +13,7 @@ public class Student {
 	private String sDeptId;
 	private String sDeptName;
 	private String sEmailId;
-	private String sUserName;
-	private String sPassWord;
+	
 	private boolean aprovalStatus;
 
 	public Student(int sRollNo, String sName, String sEmailId, boolean aprovalStatus) {
@@ -36,42 +35,8 @@ public class Student {
 	public Student() {
 	}
 
-	/**
-	 * @return the sUserName
-	 */
-
-	public String getsUserName() {
-		return sUserName;
-	}
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-
-	/**
-	 * @param sUserName
-	 *            the sUserName to set
-	 */
-	public void setsUserName(String sUserName) {
-		this.sUserName = sUserName;
-	}
-
-	/**
-	 * @return the sPassWord
-	 */
-	public String getsPassWord() {
-		return sPassWord;
-	}
-
-	/**
-	 * @param sPassWord
-	 *            the sPassWord to set
-	 */
-	public void setsPassWord(String sPassWord) {
-		this.sPassWord = sPassWord;
-	}
-
+	
+	
 	/**
 	 * @return the sEmailId
 	 */
@@ -177,8 +142,8 @@ public class Student {
 	@Override
 	public String toString() {
 		return "Student [sRollNo=" + sRollNo + ", sName=" + sName + ", sGrade=" + sGrade + ", sCourseId=" + sCourseId
-				+ ", sDeptId=" + sDeptId + ", sDeptName=" + sDeptName + ", sEmailId=" + sEmailId + ", sUserName="
-				+ sUserName + ", sPassWord=" + sPassWord + ", aprovalStatus=" + aprovalStatus + "]";
+				+ ", sDeptId=" + sDeptId + ", sDeptName=" + sDeptName + ", sEmailId=" + sEmailId 
+				+ ", aprovalStatus=" + aprovalStatus + "]";
 	}
 
 	

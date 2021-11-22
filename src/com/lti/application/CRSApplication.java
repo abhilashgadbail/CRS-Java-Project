@@ -26,72 +26,67 @@ public class CRSApplication {
 	public static void main(String[] args) throws EntityNotFoundException, SQLException, ParseException {
 		// TODO Auto-generated method stub
 
-		AdminOperations admin=new AdminOperations();
-		
-		//admin.addCourse();
+		AdminOperations admin = new AdminOperations();
+
+		// admin.addCourse();
 		display();
 
 		// String inp= String.valueOf(input);
 
-		boolean exit=false;
+		boolean exit = false;
 		do {
 			Scanner sc = new Scanner(System.in);
 			int input = sc.nextInt();
-			
-		
-		switch (input) {
-		case 1:
-			StudentCrsMenu sCrs = new StudentCrsMenu();
-			Student std = new Student();
 
-			System.out.println("Enter Your Roll Number");
-			int sRollNo = sc.nextInt();
+			switch (input) {
+			case 1:
+				StudentCrsMenu sCrs = new StudentCrsMenu();
+				Student std = new Student();
 
-			System.out.println("Enter Your Name");
-			String sName = sc.next();
+				System.out.println("Enter Your Roll Number");
+				int sRollNo = sc.nextInt();
 
-			System.out.println("Enter Your EmailID");
-			String sEmailId = sc.next();
+				System.out.println("Enter Your Name");
+				String sName = sc.next();
 
-			std.setAprovalStatus(false);
-			std.setsRollNo(sRollNo);
-			std.setsName(sName);
-			std.setsEmailId(sEmailId);
-			sCrs.registration(std);
-			System.out.println("HI");
-			break;
-			
+				System.out.println("Enter Your EmailID");
+				String sEmailId = sc.next();
 
-		case 2:
-			UserOperations userOperations = new UserOperations();
+				std.setAprovalStatus(false);
+				std.setsRollNo(sRollNo);
+				std.setsName(sName);
+				std.setsEmailId(sEmailId);
+				sCrs.registration(std);
+				System.out.println("HI");
+				break;
 
-			System.out.println();
-			System.out.println("Enter your USERID");
-			String userId = sc.next();
+			case 2:
+				UserOperations userOperations = new UserOperations();
 
-			System.out.println("Enter your Password");
-			String password = sc.next();
-						
-			userOperations.login(userId, password);
-			
-			
-			
-			
-			break;
+				System.out.println();
+				System.out.println("Enter your USERID");
+				String userId = sc.next();
 
-		case 4:
-			
-			System.out.println("Exited Successfully from Application");
-			exit=true;
-			
-			break;
-		default:
+				System.out.println("Enter your Password");
+				String password = sc.next();
 
-			System.out.println("You have entered wrong choise.. Please select any one of these..!!");
-			display();
-		}
+				userOperations.login(userId, password);
+
+				break;
+
+			case 4:
+
+				System.out.println("Exited Successfully from Application");
+				exit = true;
+
+				break;
+			default:
+
+				System.out.println("You have entered wrong choise.. Please select any one of these..!!");
+				display();
+			}
+
+		} while (!exit);
 
 	}
-		while (!exit);
-
-	}}
+}

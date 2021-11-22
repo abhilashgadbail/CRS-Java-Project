@@ -8,12 +8,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.lti.SQLconstant.CombineQuery;
 import com.lti.bean.Course;
+import com.lti.bean.Professor;
+import com.lti.exception.EntityNotFoundException;
 import com.lti.util.DBUtils;
 
 public class AdminDAOOperations {
 
-	
+	static List<Professor> profList = new ArrayList<Professor>();
+
 	Connection conn = null;
 	PreparedStatement stmt = null;
 
@@ -106,6 +110,7 @@ public class AdminDAOOperations {
 
 		try {
 
+			
 			// Step 3 Regiater Driver here and create connection
 
 			Class.forName("com.mysql.jdbc.Driver");
@@ -194,6 +199,46 @@ public class AdminDAOOperations {
 		System.out.println("Goodbye!");
 
 	}
+	
+	public void removeProf(int pid) throws SQLException, EntityNotFoundException {
+		
+		conn = DBUtils.getConnection();
+		stmt = conn.prepareStatement(CombineQuery.removeProfessorSql);
+		
+		stmt.setInt(1, pid);
+		
+		int resultset=stmt.executeUpdate();
+		
+		if(resultset!=0) {
+			System.out.println("Professor Successsfully removed");
+			
+		}
+		
+		else 
+			throw new EntityNotFoundException("NOT Found any professor with this ID ");
+		
+	}
+	
+
+public void approveStudentRegistration(int sId) throws EntityNotFoundException, SQLException {
+        Connection conn = null;
+		PreparedStatement stmt = null;
+		conn =DBUtils.getConnection();
+		String sql = "SELECT sId, transactionId, amount,status FROM payment"; 
+		stmt = conn.prepareStatement(sql);
+		
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) {
+			// Retrieve by column name
+			//int sid = rs.getInt("sId");
+		     if (rs.getInt("sId") == sId && rs.getString("status")=="true") {
+				System.out.println("Student registration approval done  successfully");
+			
+         }
+		else
+			throw new EntityNotFoundException("No Student Found with Id: "+sId);
+	}
+}
 
 	
 	
