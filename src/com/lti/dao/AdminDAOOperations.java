@@ -227,7 +227,7 @@ public void approveStudentRegistration(int sId) throws EntityNotFoundException, 
         Connection conn = null;
 		PreparedStatement stmt = null;
 		conn =DBUtils.getConnection();
-
+		boolean exit = false;
 
 		stmt = conn.prepareStatement(CombineQuery.fetchPayment);
 		stmt.setInt(1,sId);
@@ -235,19 +235,21 @@ public void approveStudentRegistration(int sId) throws EntityNotFoundException, 
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
 
-		     if (rs.getInt("sId") == sId && rs.getBoolean("status")) {
+			if (rs.getInt("sId") == sId && rs.getBoolean("status")) {
 				stmt = conn.prepareStatement(CombineQuery.approveStudentRegistration);
-				stmt.setBoolean(1,true);
-				stmt.setInt(2,rs.getInt("sId"));
+				stmt.setBoolean(1, true);
+				stmt.setInt(2, rs.getInt("sId"));
 				stmt.executeUpdate();
 				System.out.println("Student registration approval done  successfully");
+				exit=true;
 				break;
-			 }
-		else
+			}
+		}
+		if (exit)
 			throw new EntityNotFoundException("No Student Found with Id: "+sId);
 	}
 }
 
 	
 	
-}
+
